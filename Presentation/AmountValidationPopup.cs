@@ -49,6 +49,7 @@ namespace PizzaBox_Receipt_Management.Presentation
             {
                 if (remainingAmount >= 0)
                 {
+                    receipt.GivenAmount = Convert.ToDecimal(txtGivenAmount.Text);
                     int returnValue = receiptBLL.AddReceiptDetails(receipt);
 
                     if (returnValue > 0)
@@ -67,7 +68,7 @@ namespace PizzaBox_Receipt_Management.Presentation
                 } else
                 {
                     this.retrunValue = 0;
-                    MessageBox.Show("Given amount should be greater than receipt amount");
+                    MessageBox.Show("Customer Given amount should be greater than receipt amount");
                 }
             }
         }

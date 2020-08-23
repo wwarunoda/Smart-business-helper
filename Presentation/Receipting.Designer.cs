@@ -459,6 +459,7 @@
             this.txtAddress.Size = new System.Drawing.Size(307, 27);
             this.txtAddress.TabIndex = 9;
             this.txtAddress.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAddress_KeyPress);
+            this.txtAddress.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtAddress_KeyUp);
             // 
             // txtName
             // 

@@ -304,7 +304,7 @@ namespace PizzaBox_Receipt_Management.Presentation
         private void txtAddress_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 13)
-            {
+            {                
                 btnCustomerAdd.Focus();
             }
         }
@@ -512,6 +512,18 @@ namespace PizzaBox_Receipt_Management.Presentation
                 btnSubmitAll.Enabled = false;
             }
 
+        }
+
+        private void txtAddress_KeyUp(object sender, KeyEventArgs e)
+        {
+            TextBox address = (TextBox)sender;
+            if (address != null && address.Text.Length > 0)
+            {
+                btnCustomerAdd.Enabled = true;
+            } else
+            {
+                btnCustomerAdd.Enabled = false;
+            }
         }
     }
 }
