@@ -35,7 +35,7 @@ namespace PizzaBox_Receipt_Management.BLL
             }
         }
 
-        public int AddReceiptDetails(ReceiptVM receipt)
+        public string AddReceiptDetails(ReceiptVM receipt)
         {
             using (ReceiptDAL reciptDal = new ReceiptDAL())
             {

@@ -11,5 +11,8 @@ namespace PizzaBox_Receipt_Management.View
         public int ProductId { get; set; }
         public int ReceiptId { get; set; }
         public int Quantity { get; set; }
+        public decimal? ItemPrice { get; set; }
+        public decimal? ItemDiscountedPrice { get; set; }
+        public ProductVM product  { get; set; }
     }
 }

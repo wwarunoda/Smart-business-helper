@@ -35,7 +35,7 @@ namespace PizzaBox_Receipt_Management.DML
             return this.GetContactList(contactTable);
         }
 
-        public int AddReceiptDetails(ReceiptVM receipt)
+        public string AddReceiptDetails(ReceiptVM receipt)
         {
             SqlConnection connection = dbInstance.GetDBConnection();
             SqlCommand cmd = new SqlCommand();
@@ -47,7 +47,7 @@ namespace PizzaBox_Receipt_Management.DML
             da = new SqlDataAdapter(cmd);
             da.Fill(ds);
 
-            return Convert.ToInt32(ds.Tables[0].Rows[0]["Id"].ToString());
+            return ds.Tables[0].Rows[0]["Id"].ToString();
         }
 
         public BusinessPartnerVM GetBusinessPartnerByBSPId(int bspId)

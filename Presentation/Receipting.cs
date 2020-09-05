@@ -1,5 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using CrystalDecisions.Windows.Forms;
+using Newtonsoft.Json;
 using PizzaBox_Receipt_Management.BLL;
+using PizzaBox_Receipt_Management.DML;
 using PizzaBox_Receipt_Management.Models;
 using PizzaBox_Receipt_Management.View;
 using System;
@@ -420,33 +422,59 @@ namespace PizzaBox_Receipt_Management.Presentation
 
         private void btnSubmitAll_Click(object sender, EventArgs e)
         {
-            ProductReceiptMapVM tempProductReceipt = new ProductReceiptMapVM();
+            decimal GAmount = 0;
+            decimal DAmount = 0;
+            decimal TotalAmount = 0;
+            decimal GridTotalAmount = 0;
+            List<ProductReceiptMapVM> productReceiptMapVMs = new List<ProductReceiptMapVM>();
+            ProductReceiptMapVM tempProductReceipt;
             ReceiptVM receipt = new ReceiptVM() {
                 Id = 0,
                 BSPId = this.selectedBSP.Id,
                 Remark = "",
-                Products = new List<ProductReceiptMapVM>()
+                Products = new List<ProductReceiptMapVM>(),
+
             };
 
             foreach (DataGridViewRow row in receiptGridView.Rows)
             {
+                tempProductReceipt = new ProductReceiptMapVM();
                 ProductVM product = JsonConvert.DeserializeObject<ProductVM>(row.Cells[9].Value.ToString());
-                receipt.TotalAmount += Convert.ToDecimal(row.Cells[8].Value);
+                GridTotalAmount += Convert.ToDecimal(row.Cells[8].Value);
                 tempProductReceipt.ProductId = product.Id;
+                tempProductReceipt.product = product;
                 tempProductReceipt.ReceiptId = 0;
                 tempProductReceipt.Quantity = Convert.ToInt32(row.Cells[4].Value);
-                receipt.Products = receipt.Products.Append(tempProductReceipt).ToList();
+                tempProductReceipt.ItemPrice = Convert.ToDecimal(row.Cells[5].Value);
+                tempProductReceipt.ItemDiscountedPrice = Convert.ToDecimal(row.Cells[7].Value);
+                productReceiptMapVMs.Add(tempProductReceipt);
+                GAmount += tempProductReceipt.ItemPrice.Value * tempProductReceipt.Quantity;
+                DAmount += (tempProductReceipt.ItemPrice.Value - tempProductReceipt.ItemDiscountedPrice.Value) * tempProductReceipt.Quantity;
+                TotalAmount += tempProductReceipt.ItemDiscountedPrice.Value * tempProductReceipt.Quantity;
+
             }
 
+            receipt.TotalAmount = GridTotalAmount;
+            receipt.Products = productReceiptMapVMs;
+
             using (var amountValidation = new AmountValidationPopup(receipt, this))
+            using (var reportBll = new ReportHandler())
             {
                 var result = amountValidation.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    int returnValue = amountValidation.retrunValue; 
+                    int returnValue = amountValidation.retrunValue;
+                    string returnReference = amountValidation.retrunReference;
 
                     if (returnValue > 0)
                     {
+                        DataTable dt = this.AddValiesToDataTable(receipt);
+                        /* print report */
+                        var reportParameters = this.GetParameterJsonObject(returnReference);
+                        
+                        reportBll.ViewReport("billReceipt", reportParameters, dt);
+
+                        /* Refresh page */
                         this.clearProductForm();
                         this.ProductFormFieldValidation();
                         isReceiptFormEnable = false;
@@ -458,13 +486,79 @@ namespace PizzaBox_Receipt_Management.Presentation
                         this.bspFormReset();
                         this.resetTable();
 
+                        
+
                     } else
                     {
                         MessageBox.Show("Some error happen. Please try again");
                     }
                 }
-            }         
+            }
 
+        }
+
+        private DataTable AddValiesToDataTable(ReceiptVM receipt)
+        {
+            int i = 1;
+            ReceiptReportData receiptData = new ReceiptReportData();
+            DataTable dt = receiptData.Tables["ReportData"];
+            foreach(ProductReceiptMapVM productReceipt in receipt.Products)
+            {
+                DataRow row = dt.NewRow();
+                row["Code"] = productReceipt.product.Code;
+                row["Item"] = productReceipt.product.Name;
+                row["Price"] = productReceipt.ItemPrice;
+                row["Discounted Price"] = productReceipt.ItemDiscountedPrice;
+                row["Qty"] = productReceipt.Quantity;
+                row["Amount"] = productReceipt.ItemDiscountedPrice * productReceipt.Quantity;
+                row["Ln"] = i;
+                dt.Rows.Add(row);
+                i++;
+            }
+            return dt;
+        }
+
+        private string GetParameterJsonObject(string receiptNo)
+        {
+            var paramList = new List<ReportParameterVM>();
+
+            paramList.Add(new ReportParameterVM()
+            {
+                Name = "@RcptNo",
+                Value = receiptNo
+            });
+            paramList.Add(new ReportParameterVM()
+            {
+                Name = "@Name",
+                Value = this.selectedBSP.Name
+            });
+            var address = "";
+            if (this.selectedBSP.addresses != null && this.selectedBSP.addresses.Count() > 0)
+            {
+                address = this.selectedBSP.addresses.FirstOrDefault().Address;
+            }
+            paramList.Add(new ReportParameterVM()
+            {
+                Name = "@Address",
+                Value = address
+            });
+            var contact = "";
+            if (this.selectedBSP.contacts != null && this.selectedBSP.contacts.Count() > 0)
+            {
+                contact = this.selectedBSP.contacts.FirstOrDefault().PhoneNumber;
+            }
+            paramList.Add(new ReportParameterVM()
+            {
+                Name = "@Telephone",
+                Value = contact
+            });
+
+            var returnParameter = new ReportParameters()
+            {
+                parameters = paramList
+            };
+
+            return JsonConvert.SerializeObject(returnParameter);
         }
 
         private void btnCustomerReset_Click(object sender, EventArgs e)

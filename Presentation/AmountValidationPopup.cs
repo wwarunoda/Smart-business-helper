@@ -15,6 +15,7 @@ namespace PizzaBox_Receipt_Management.Presentation
     public partial class AmountValidationPopup : Form
     {
         public int retrunValue { get; set; }
+        public string retrunReference { get; set; }
         ReceiptVM receipt;
         Receipting receiptForm;
         decimal remainingAmount;
@@ -50,8 +51,8 @@ namespace PizzaBox_Receipt_Management.Presentation
                 if (remainingAmount >= 0)
                 {
                     receipt.GivenAmount = Convert.ToDecimal(txtGivenAmount.Text);
-                    int returnValue = receiptBLL.AddReceiptDetails(receipt);
-
+                    this.retrunReference = receiptBLL.AddReceiptDetails(receipt);
+                    var returnValue = Convert.ToInt32(this.retrunReference);
                     if (returnValue > 0)
                     {
                         MessageBox.Show("Receipt printed succesful");
