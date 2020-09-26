@@ -113,14 +113,14 @@ namespace PizzaBox_Receipt_Management.Presentation
             specDeleteButton.UseColumnTextForButtonValue = true;
             gridViewSpecifications.Columns.Add(specDeleteButton);
 
-            productGridView.Columns[0].Width = 210;
-            productGridView.Columns[1].Width = 155;
-            productGridView.Columns[2].Width = 150;
+            productGridView.Columns[0].Width = 200;
+            productGridView.Columns[1].Width = 145;
+            productGridView.Columns[2].Width = 145;
 
-            gridViewSpecifications.Columns[0].Width = 115;
-            gridViewSpecifications.Columns[1].Width = 80;
-            gridViewSpecifications.Columns[2].Width = 80;
-            gridViewSpecifications.Columns[3].Width = 80;
+            gridViewSpecifications.Columns[0].Width = 95;
+            gridViewSpecifications.Columns[1].Width = 75;
+            gridViewSpecifications.Columns[2].Width = 75;
+            gridViewSpecifications.Columns[3].Width = 75;
 
             using (CommonServiceBLL commonServiceBLL = new CommonServiceBLL())
             {
@@ -216,9 +216,11 @@ namespace PizzaBox_Receipt_Management.Presentation
 
         private void ProductFormFieldValidation()
         {
-            this.txtCode.Enabled = !String.IsNullOrWhiteSpace(this.txtItemName.Text);
-            this.cmbCategory.Enabled = !String.IsNullOrWhiteSpace(this.txtCode.Text);
-            this.btnAddUpdate.Enabled = this.cmbCategory.SelectedIndex > -1 && this.cmbCategory.Enabled;
+            this.txtItemName.Enabled = this.cmbCategory.SelectedIndex > -1;
+            this.txtCode.Enabled = !String.IsNullOrWhiteSpace(this.txtItemName.Text);     
+            this.btnAddUpdate.Enabled = this.cmbCategory.SelectedIndex > -1 
+                                        && !String.IsNullOrWhiteSpace(this.txtItemName.Text) 
+                                        && !String.IsNullOrWhiteSpace(this.txtCode.Text);
         }
 
         private void PriceFormFieldValidation()

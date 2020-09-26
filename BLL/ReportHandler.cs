@@ -6,6 +6,7 @@ using PizzaBox_Receipt_Management.View;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -34,6 +35,7 @@ namespace PizzaBox_Receipt_Management.BLL
 
         public void ViewReport(string reportName, string parameterListJson, DataTable dt)
         {
+            System.Drawing.Printing.PrintDocument localPrinter = new PrintDocument();
             ParameterFields paramFields = new ParameterFields();
             reportDocument = new ReportDocument();
             string reportPath = Path.Combine(projectPath, "Reports", reportName + ".rpt");
@@ -54,6 +56,12 @@ namespace PizzaBox_Receipt_Management.BLL
             reportDocument.SetDataSource(dt);
             this.reportViewer.crystalReportViewer.ReportSource = reportDocument;
             this.reportViewer.Show();
+   
+            reportDocument.PrintOptions.PrinterName = localPrinter.PrinterSettings.PrinterName.ToString();
+            reportDocument.PrintToPrinter(1, false, 1, 1);
+
+            this.reportViewer.Hide();
+
         }
 
         // recursively yield all children of json

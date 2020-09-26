@@ -13,6 +13,7 @@ namespace PizzaBox_Receipt_Management.View
         public decimal TotalAmount { get; set; }        
         public decimal? GivenAmount { get; set; }
         public string Remark { get; set; }
+        public string ReceiptReference { get; set; }
         public IEnumerable<ProductReceiptMapVM> Products { get; set; }
     }
 }

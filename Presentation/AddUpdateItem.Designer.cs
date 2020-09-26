@@ -133,7 +133,7 @@ namespace PizzaBox_Receipt_Management.Presentation
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(75, 117);
+            this.label3.Location = new System.Drawing.Point(73, 32);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(17, 17);
             this.label3.TabIndex = 12;
@@ -142,7 +142,7 @@ namespace PizzaBox_Receipt_Management.Presentation
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(75, 70);
+            this.label2.Location = new System.Drawing.Point(73, 94);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(17, 17);
             this.label2.TabIndex = 11;
@@ -151,7 +151,7 @@ namespace PizzaBox_Receipt_Management.Presentation
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(75, 30);
+            this.label1.Location = new System.Drawing.Point(73, 64);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(17, 17);
             this.label1.TabIndex = 10;
@@ -160,7 +160,7 @@ namespace PizzaBox_Receipt_Management.Presentation
             // cmbCategory
             // 
             this.cmbCategory.FormattingEnabled = true;
-            this.cmbCategory.Location = new System.Drawing.Point(117, 114);
+            this.cmbCategory.Location = new System.Drawing.Point(115, 29);
             this.cmbCategory.Name = "cmbCategory";
             this.cmbCategory.Size = new System.Drawing.Size(189, 24);
             this.cmbCategory.TabIndex = 5;
@@ -169,7 +169,7 @@ namespace PizzaBox_Receipt_Management.Presentation
             // lblCategory
             // 
             this.lblCategory.AutoSize = true;
-            this.lblCategory.Location = new System.Drawing.Point(14, 117);
+            this.lblCategory.Location = new System.Drawing.Point(12, 32);
             this.lblCategory.Name = "lblCategory";
             this.lblCategory.Size = new System.Drawing.Size(65, 17);
             this.lblCategory.TabIndex = 4;
@@ -177,7 +177,7 @@ namespace PizzaBox_Receipt_Management.Presentation
             // 
             // txtCode
             // 
-            this.txtCode.Location = new System.Drawing.Point(117, 67);
+            this.txtCode.Location = new System.Drawing.Point(115, 91);
             this.txtCode.Name = "txtCode";
             this.txtCode.Size = new System.Drawing.Size(189, 22);
             this.txtCode.TabIndex = 3;
@@ -186,7 +186,7 @@ namespace PizzaBox_Receipt_Management.Presentation
             // lblCode
             // 
             this.lblCode.AutoSize = true;
-            this.lblCode.Location = new System.Drawing.Point(14, 70);
+            this.lblCode.Location = new System.Drawing.Point(12, 94);
             this.lblCode.Name = "lblCode";
             this.lblCode.Size = new System.Drawing.Size(41, 17);
             this.lblCode.TabIndex = 2;
@@ -194,7 +194,7 @@ namespace PizzaBox_Receipt_Management.Presentation
             // 
             // txtItemName
             // 
-            this.txtItemName.Location = new System.Drawing.Point(117, 27);
+            this.txtItemName.Location = new System.Drawing.Point(115, 61);
             this.txtItemName.Name = "txtItemName";
             this.txtItemName.Size = new System.Drawing.Size(340, 22);
             this.txtItemName.TabIndex = 1;
@@ -203,7 +203,7 @@ namespace PizzaBox_Receipt_Management.Presentation
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(14, 30);
+            this.lblName.Location = new System.Drawing.Point(12, 64);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(45, 17);
             this.lblName.TabIndex = 0;
@@ -318,7 +318,7 @@ namespace PizzaBox_Receipt_Management.Presentation
             this.productGridView.RowHeadersWidth = 51;
             this.productGridView.RowTemplate.Height = 24;
             this.productGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.productGridView.Size = new System.Drawing.Size(1094, 432);
+            this.productGridView.Size = new System.Drawing.Size(1039, 432);
             this.productGridView.TabIndex = 0;
             this.productGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridItems_CellClick);
             // 
@@ -475,11 +475,11 @@ namespace PizzaBox_Receipt_Management.Presentation
             // 
             this.gridViewSpecifications.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.gridViewSpecifications.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridViewSpecifications.Location = new System.Drawing.Point(1106, 284);
+            this.gridViewSpecifications.Location = new System.Drawing.Point(1051, 284);
             this.gridViewSpecifications.Name = "gridViewSpecifications";
             this.gridViewSpecifications.RowHeadersWidth = 51;
             this.gridViewSpecifications.RowTemplate.Height = 24;
-            this.gridViewSpecifications.Size = new System.Drawing.Size(815, 432);
+            this.gridViewSpecifications.Size = new System.Drawing.Size(763, 432);
             this.gridViewSpecifications.TabIndex = 3;
             this.gridViewSpecifications.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridViewSpecifications_CellClick);
             // 
@@ -522,7 +522,7 @@ namespace PizzaBox_Receipt_Management.Presentation
             // 
             // btnResetSpec
             // 
-            this.btnResetSpec.Location = new System.Drawing.Point(1758, 723);
+            this.btnResetSpec.Location = new System.Drawing.Point(1651, 722);
             this.btnResetSpec.Name = "btnResetSpec";
             this.btnResetSpec.Size = new System.Drawing.Size(163, 45);
             this.btnResetSpec.TabIndex = 8;

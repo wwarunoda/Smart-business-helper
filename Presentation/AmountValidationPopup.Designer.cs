@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnOk = new System.Windows.Forms.Button();
-            this.btnExit = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -40,27 +38,12 @@
             this.txtGivenAmount = new System.Windows.Forms.TextBox();
             this.txtBalance = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.btnOk = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtReceiptReferene = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
-            // btnOk
-            // 
-            this.btnOk.Location = new System.Drawing.Point(307, 173);
-            this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(110, 72);
-            this.btnOk.TabIndex = 0;
-            this.btnOk.Text = "Print";
-            this.btnOk.UseVisualStyleBackColor = true;
-            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
-            // 
-            // btnExit
-            // 
-            this.btnExit.Location = new System.Drawing.Point(191, 173);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(110, 72);
-            this.btnExit.TabIndex = 1;
-            this.btnExit.Text = "Exit";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // label1
             // 
@@ -152,12 +135,61 @@
             this.label7.TabIndex = 11;
             this.label7.Text = "Cash Balance";
             // 
+            // btnOk
+            // 
+            this.btnOk.Location = new System.Drawing.Point(307, 240);
+            this.btnOk.Name = "btnOk";
+            this.btnOk.Size = new System.Drawing.Size(110, 72);
+            this.btnOk.TabIndex = 0;
+            this.btnOk.Text = "Print";
+            this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            // 
+            // btnExit
+            // 
+            this.btnExit.Location = new System.Drawing.Point(191, 240);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(110, 72);
+            this.btnExit.TabIndex = 1;
+            this.btnExit.Text = "Exit";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(42, 200);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(93, 21);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "Reference";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(155, 200);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(17, 17);
+            this.label9.TabIndex = 13;
+            this.label9.Text = ":-";
+            // 
+            // txtReceiptReferene
+            // 
+            this.txtReceiptReferene.Location = new System.Drawing.Point(191, 195);
+            this.txtReceiptReferene.MaxLength = 100;
+            this.txtReceiptReferene.Name = "txtReceiptReferene";
+            this.txtReceiptReferene.Size = new System.Drawing.Size(226, 22);
+            this.txtReceiptReferene.TabIndex = 14;
+            // 
             // AmountValidationPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(437, 287);
+            this.ClientSize = new System.Drawing.Size(437, 324);
             this.ControlBox = false;
+            this.Controls.Add(this.txtReceiptReferene);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txtBalance);
             this.Controls.Add(this.txtGivenAmount);
@@ -185,9 +217,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnOk;
-        private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -198,5 +227,10 @@
         private System.Windows.Forms.TextBox txtGivenAmount;
         private System.Windows.Forms.TextBox txtBalance;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnOk;
+        private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtReceiptReferene;
     }
 }

@@ -177,6 +177,10 @@ namespace PizzaBox_Receipt_Management.Presentation
             this.cmbSelectProduct.Enabled = this.cmbSelectCategory.SelectedIndex > -1 && this.cmbSelectCategory.Enabled;
             this.cmbSize.Enabled = this.cmbSelectProduct.SelectedIndex > -1;
             this.txtSelectQuantity.Enabled = this.cmbSize.SelectedIndex > -1;
+            if(this.cmbSize.SelectedIndex > -1 && String.IsNullOrWhiteSpace(this.txtSelectQuantity.Text))
+            {
+                this.txtSelectQuantity.Text = "1";
+            }
             this.btnProductAdd.Enabled = this.txtSelectQuantity.Text.Length > 0;
         }
 
@@ -327,7 +331,7 @@ namespace PizzaBox_Receipt_Management.Presentation
         private void cmbSelectProduct_SelectedIndexChanged(object sender, EventArgs e)
         {
             int selectedValue = 0;
-            SelectedSizeList = this.SizeList;
+            List<MultiPurposeTagVM> sizes = new List<MultiPurposeTagVM>();
             ComboBox cmbProduct = (ComboBox)sender;
             int selectedIndex = cmbProduct.SelectedIndex;
             if (selectedIndex != -1)
@@ -338,8 +342,15 @@ namespace PizzaBox_Receipt_Management.Presentation
                 foreach (ProductPriceVM size in filterdPorduct.PriceList)
                 {
                     if (size.mpt_SizeEnum != 0)
-                        this.SelectedSizeList = this.SelectedSizeList.Where(selectSize => selectSize.Data == size.mpt_SizeEnum).ToList();
+                    {
+                        var tempList = this.SizeList.Where(selectSize => selectSize.Data == size.mpt_SizeEnum).ToList();
+                        if (tempList != null && tempList.Count > 0)
+                        {
+                            sizes.Add(tempList.FirstOrDefault());
+                        }
+                    }
                 }
+                this.SelectedSizeList = sizes.Distinct().ToList();
             }
             this.cmbSize.DataSource = this.SelectedSizeList;
             this.ProductFormFieldValidation();
@@ -432,6 +443,7 @@ namespace PizzaBox_Receipt_Management.Presentation
                 Id = 0,
                 BSPId = this.selectedBSP.Id,
                 Remark = "",
+                ReceiptReference = "",
                 Products = new List<ProductReceiptMapVM>(),
 
             };
@@ -465,12 +477,13 @@ namespace PizzaBox_Receipt_Management.Presentation
                 {
                     int returnValue = amountValidation.retrunValue;
                     string returnReference = amountValidation.retrunReference;
+                    string receiptReference = !String.IsNullOrEmpty(amountValidation.receiptReference) ? amountValidation.receiptReference : "--";
 
                     if (returnValue > 0)
                     {
                         DataTable dt = this.AddValiesToDataTable(receipt);
                         /* print report */
-                        var reportParameters = this.GetParameterJsonObject(returnReference);
+                        var reportParameters = this.GetParameterJsonObject(returnReference, receiptReference);
                         
                         reportBll.ViewReport("billReceipt", reportParameters, dt);
 
@@ -518,7 +531,7 @@ namespace PizzaBox_Receipt_Management.Presentation
             return dt;
         }
 
-        private string GetParameterJsonObject(string receiptNo)
+        private string GetParameterJsonObject(string receiptNo, string receiptReference)
         {
             var paramList = new List<ReportParameterVM>();
 
@@ -551,6 +564,12 @@ namespace PizzaBox_Receipt_Management.Presentation
             {
                 Name = "@Telephone",
                 Value = contact
+            });
+
+            paramList.Add(new ReportParameterVM()
+            {
+                Name = "@ReceiptReference",
+                Value = receiptReference
             });
 
             var returnParameter = new ReportParameters()
@@ -618,6 +637,21 @@ namespace PizzaBox_Receipt_Management.Presentation
             {
                 btnCustomerAdd.Enabled = false;
             }
+        }
+
+        private void txtSelectQuantity_MouseEnter(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void txtSelectQuantity_MouseDown(object sender, MouseEventArgs e)
+        {
+            this.txtSelectQuantity.Clear();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

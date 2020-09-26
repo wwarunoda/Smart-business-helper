@@ -16,6 +16,7 @@ namespace PizzaBox_Receipt_Management.Presentation
     {
         public int retrunValue { get; set; }
         public string retrunReference { get; set; }
+        public string receiptReference { get; set; }
         ReceiptVM receipt;
         Receipting receiptForm;
         decimal remainingAmount;
@@ -51,6 +52,8 @@ namespace PizzaBox_Receipt_Management.Presentation
                 if (remainingAmount >= 0)
                 {
                     receipt.GivenAmount = Convert.ToDecimal(txtGivenAmount.Text);
+                    receipt.ReceiptReference = txtReceiptReferene.Text;
+                    this.receiptReference = txtReceiptReferene.Text;
                     this.retrunReference = receiptBLL.AddReceiptDetails(receipt);
                     var returnValue = Convert.ToInt32(this.retrunReference);
                     if (returnValue > 0)
