@@ -12,8 +12,11 @@ namespace PizzaBox_Receipt_Management.View
         public int BSPId { get; set; }
         public decimal TotalAmount { get; set; }        
         public decimal? GivenAmount { get; set; }
+        public decimal? SpecialDiscount { get; set; }
+        public decimal? CustomerBalance { get; set; }
         public string Remark { get; set; }
         public string ReceiptReference { get; set; }
+        public DateTime? CreatedDateTime { get; set; }
         public IEnumerable<ProductReceiptMapVM> Products { get; set; }
     }
 }

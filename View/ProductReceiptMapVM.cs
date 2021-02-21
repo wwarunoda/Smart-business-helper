@@ -13,6 +13,8 @@ namespace PizzaBox_Receipt_Management.View
         public int Quantity { get; set; }
         public decimal? ItemPrice { get; set; }
         public decimal? ItemDiscountedPrice { get; set; }
+        public int? mpt_SizeEnum { get; set; }
+        public string Size { get; set; }
         public ProductVM product  { get; set; }
     }
 }

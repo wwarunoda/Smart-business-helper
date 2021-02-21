@@ -1,4 +1,5 @@
 ﻿using PizzaBox_Receipt_Management.DML;
+using PizzaBox_Receipt_Management.Models;
 using PizzaBox_Receipt_Management.View;
 using System;
 using System.Collections.Generic;
@@ -34,11 +35,27 @@ namespace PizzaBox_Receipt_Management.BLL
             }
         }
 
+        public ReceiptAdvanceDetailsResponse GetReceiptAdvancedDetails(ReceiptAdvanceDetailsRequest request)
+        {
+            using (ProductDAL productDal = new ProductDAL())
+            {
+                return productDal.GetReceiptAdvancedDetails(request);
+            }
+        }
+
         public void DeleteProductPriceMapping(int productPriceMappingId)
         {
             using (ProductDAL productDal = new ProductDAL())
             {
                 productDal.DeleteProductPriceMapping(productPriceMappingId);
+            }
+        }
+
+        public List<DialyReportVM> ViewDialyReport(DateTime fromDate, DateTime toDate)
+        {
+            using (ProductDAL productDal = new ProductDAL())
+            {
+                return productDal.ViewDialyReport(fromDate, toDate);
             }
         }
 

@@ -14,6 +14,7 @@ namespace PizzaBox_Receipt_Management.View
         public int mpt_CategoryEnum { get; set; }
         public string CategoryName { get; set; }
         public int mpt_StatusEnum { get; set; }
+        public int? mpt_SizeEnum { get; set; }
         public string Status { get; set; }
         public IEnumerable<ProductPriceVM> PriceList { get; set; }
     }

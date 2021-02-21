@@ -30,6 +30,8 @@ namespace PizzaBox_Receipt_Management.Presentation
         IEnumerable<BusinessPartnerContactDetails> contacts;
         List<ProductVM> products;
         DataTable receiptTable;
+        DataTable receiptHistoryTable;
+        IEnumerable<ReceiptVM> receiptHistoryList;
         public Receipting()
         {
             InitializeComponent();
@@ -52,6 +54,7 @@ namespace PizzaBox_Receipt_Management.Presentation
             this.initializeCustomerForm();
             this.initializeProductDropdowns();
             this.initializeReceptTable();
+            this.initializeReceptHistoryTable();
             this.btnSubmitAll.Enabled = false;
         }
 
@@ -96,6 +99,10 @@ namespace PizzaBox_Receipt_Management.Presentation
         private void btnProductAdd_Click(object sender, EventArgs e)
         {
             ProductVM product = (ProductVM)cmbSelectProduct.SelectedItem;
+            if(product == null)
+            {
+                MessageBox.Show("Please select product before add");
+            }
             if(product.PriceList.Count() == 0)
             {
                 MessageBox.Show("Please define price before add");
@@ -128,7 +135,7 @@ namespace PizzaBox_Receipt_Management.Presentation
             receiptTable.Columns.Add("Size");
             receiptTable.Columns.Add("Quantity");
             receiptTable.Columns.Add("Item Price");
-            receiptTable.Columns.Add("Discount");
+            receiptTable.Columns.Add("Discount %");
             receiptTable.Columns.Add("Discounted Price");
             receiptTable.Columns.Add("Total");
             receiptTable.Columns.Add("Product");
@@ -146,16 +153,17 @@ namespace PizzaBox_Receipt_Management.Presentation
             receiptGridView.Columns.Add(deleteButton);
 
             receiptGridView.Columns[0].Width = 130;
-            receiptGridView.Columns[1].Width = 130;
+            receiptGridView.Columns[1].Width = 133;
             receiptGridView.Columns[2].Width = 100;
             receiptGridView.Columns[3].Width = 100;
             receiptGridView.Columns[4].Width = 100;
-            receiptGridView.Columns[5].Width = 75;
-            receiptGridView.Columns[6].Width = 120;
-            receiptGridView.Columns[7].Width = 120;
+            receiptGridView.Columns[5].Width = 100;
+            receiptGridView.Columns[6].Width = 130;
+            receiptGridView.Columns[7].Width = 130;
 
             receiptTable.RowChanged += new DataRowChangeEventHandler(OnReceiptRowChanged);
         }
+
 
         private void getProducts()
         {
@@ -181,7 +189,7 @@ namespace PizzaBox_Receipt_Management.Presentation
             {
                 this.txtSelectQuantity.Text = "1";
             }
-            this.btnProductAdd.Enabled = this.txtSelectQuantity.Text.Length > 0;
+            this.btnProductAdd.Enabled = this.cmbSelectProduct.SelectedIndex > -1 && this.txtSelectQuantity.Text.Length > 0;
         }
 
         private void cmbPhoneNumber_KeyDown(object sender, KeyEventArgs e)
@@ -218,6 +226,7 @@ namespace PizzaBox_Receipt_Management.Presentation
 
         private void btnCustomerAdd_Click(object sender, EventArgs e)
         {
+            this.receiptHistoryList = new List<ReceiptVM>();
             isReceiptFormEnable = false;
             if (!isBusinessPartnerAvailable) {
                 if (txtName.Text.Trim().Length > 0 &&
@@ -236,7 +245,9 @@ namespace PizzaBox_Receipt_Management.Presentation
                     {
                         bspVM.Id = bspContactVM.BusinessPartnerId;                       
                         bspVM.mpt_StatusEnum = (int)BusinessPartnerStatusEnum.Active;                        
-                        bspAddressVM.Id = this.selectedBSP.addresses.FirstOrDefault().Id;                        
+                        bspAddressVM.Id = this.selectedBSP.addresses.FirstOrDefault().Id;
+                        this.receiptHistoryList = this.LoadReceiptHistory(bspContactVM.BusinessPartnerId);
+                        this.SetReceiptHistoryTable(this.receiptHistoryList);
                     } else
                     {
                         bspContactVM = new BusinessPartnerContactDetails();
@@ -281,6 +292,76 @@ namespace PizzaBox_Receipt_Management.Presentation
                 this.setBspLables(this.selectedBSP);
             }
         }
+
+        private void initializeReceptHistoryTable()
+        {
+            receiptHistoryTable = new DataTable();
+            receiptHistoryTable.Columns.Add("Receipt No");
+            receiptHistoryTable.Columns.Add("Date");
+            receiptHistoryTable.Columns.Add("Price");
+            receiptHistoryTable.Columns.Add("SDiscount");
+            receiptHistoryTable.Columns.Add("Products");
+
+            dataGridReceiptHistory.DataSource = receiptHistoryTable;
+
+            dataGridReceiptHistory.Columns[0].Width = 80;
+            dataGridReceiptHistory.Columns[1].Width = 70;
+            dataGridReceiptHistory.Columns[2].Width = 100;
+            dataGridReceiptHistory.Columns[3].Width = 60;
+            dataGridReceiptHistory.Columns[4].Width = 150;
+
+            dataGridReceiptHistory.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridReceiptHistory.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridReceiptHistory.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridReceiptHistory.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            dataGridReceiptHistory.Columns[0].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridReceiptHistory.Columns[1].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridReceiptHistory.Columns[2].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridReceiptHistory.Columns[3].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            dataGridReceiptHistory.Columns[4].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+        }
+
+        private IEnumerable<ReceiptVM> LoadReceiptHistory(int bspId)
+        {
+            using (ReceiptBLL receiptBLL = new ReceiptBLL())
+            {
+                return receiptBLL.GetReceiptHistory(bspId);
+            }
+        }
+
+        private void SetReceiptHistoryTable(IEnumerable<ReceiptVM> receipts)
+        {
+            int rowIndex = 0;
+            foreach (ReceiptVM receipt in receipts)
+            {
+                string products = "";
+                foreach (ProductReceiptMapVM productReceiptMapVM in receipt.Products)
+                {
+                    if (productReceiptMapVM.product != null)
+                    {
+                        string productDetail = productReceiptMapVM.product.Code + "/ " +
+                                                productReceiptMapVM.Size + "/ " +
+                                                productReceiptMapVM.Quantity + System.Environment.NewLine;
+                        products = String.Concat(products, productDetail);
+                    }
+                }
+                DataRow itemDataRow = this.receiptHistoryTable.NewRow();
+                itemDataRow[0] = receipt.Id;
+                itemDataRow[1] = receipt.CreatedDateTime.Value.Date.ToShortDateString();
+                itemDataRow[2] = receipt.TotalAmount;
+                itemDataRow[3] = receipt.SpecialDiscount;
+                itemDataRow[4] = products;
+                this.receiptHistoryTable.Rows.Add(itemDataRow);
+
+                dataGridReceiptHistory.Rows[rowIndex].Height = (receipt.Products.Count() > 0 ? (receipt.Products.Count() * 14) : 15) + 5;
+
+                rowIndex++;
+            }
+        }
+
 
         private void setBspLables(BusinessPartnerVM businessPartner)
         {
@@ -452,6 +533,7 @@ namespace PizzaBox_Receipt_Management.Presentation
             {
                 tempProductReceipt = new ProductReceiptMapVM();
                 ProductVM product = JsonConvert.DeserializeObject<ProductVM>(row.Cells[9].Value.ToString());
+                ProductPriceVM productPrice = JsonConvert.DeserializeObject<ProductPriceVM>(row.Cells[10].Value.ToString());
                 GridTotalAmount += Convert.ToDecimal(row.Cells[8].Value);
                 tempProductReceipt.ProductId = product.Id;
                 tempProductReceipt.product = product;
@@ -459,6 +541,8 @@ namespace PizzaBox_Receipt_Management.Presentation
                 tempProductReceipt.Quantity = Convert.ToInt32(row.Cells[4].Value);
                 tempProductReceipt.ItemPrice = Convert.ToDecimal(row.Cells[5].Value);
                 tempProductReceipt.ItemDiscountedPrice = Convert.ToDecimal(row.Cells[7].Value);
+                tempProductReceipt.mpt_SizeEnum = productPrice.mpt_SizeEnum;
+                tempProductReceipt.Size = productPrice.SizeName;
                 productReceiptMapVMs.Add(tempProductReceipt);
                 GAmount += tempProductReceipt.ItemPrice.Value * tempProductReceipt.Quantity;
                 DAmount += (tempProductReceipt.ItemPrice.Value - tempProductReceipt.ItemDiscountedPrice.Value) * tempProductReceipt.Quantity;
@@ -478,29 +562,16 @@ namespace PizzaBox_Receipt_Management.Presentation
                     int returnValue = amountValidation.retrunValue;
                     string returnReference = amountValidation.retrunReference;
                     string receiptReference = !String.IsNullOrEmpty(amountValidation.receiptReference) ? amountValidation.receiptReference : "--";
-
+                    decimal specialDiscount = amountValidation.specialDiscount;
+                    decimal customerBalance = amountValidation.CustomerBalance;
                     if (returnValue > 0)
                     {
                         DataTable dt = this.AddValiesToDataTable(receipt);
                         /* print report */
-                        var reportParameters = this.GetParameterJsonObject(returnReference, receiptReference);
+                        var reportParameters = this.GetParameterJsonObject(returnReference, receiptReference, specialDiscount, customerBalance);
                         
                         reportBll.ViewReport("billReceipt", reportParameters, dt);
-
-                        /* Refresh page */
-                        this.clearProductForm();
-                        this.ProductFormFieldValidation();
-                        isReceiptFormEnable = false;
-                        cmbPhoneNumber.Enabled = true;
-                        txtName.Enabled = true;
-                        txtAddress.Enabled = true;
-                        this.initializeProductDropdowns();
-                        this.initializeReceptTable();
-                        this.bspFormReset();
-                        this.resetTable();
-
-                        
-
+                        this.RefreshPage();
                     } else
                     {
                         MessageBox.Show("Some error happen. Please try again");
@@ -509,7 +580,20 @@ namespace PizzaBox_Receipt_Management.Presentation
             }
 
         }
-
+        private void RefreshPage()
+        {
+            /* Refresh page */
+            this.clearProductForm();
+            this.ProductFormFieldValidation();
+            isReceiptFormEnable = false;
+            cmbPhoneNumber.Enabled = true;
+            txtName.Enabled = true;
+            txtAddress.Enabled = true;
+            this.initializeProductDropdowns();
+            this.initializeReceptTable();
+            this.bspFormReset();
+            this.resetTable();
+        }
         private DataTable AddValiesToDataTable(ReceiptVM receipt)
         {
             int i = 1;
@@ -525,13 +609,14 @@ namespace PizzaBox_Receipt_Management.Presentation
                 row["Qty"] = productReceipt.Quantity;
                 row["Amount"] = productReceipt.ItemDiscountedPrice * productReceipt.Quantity;
                 row["Ln"] = i;
+                row["Size"] = productReceipt.Size;
                 dt.Rows.Add(row);
                 i++;
             }
             return dt;
         }
 
-        private string GetParameterJsonObject(string receiptNo, string receiptReference)
+        private string GetParameterJsonObject(string receiptNo, string receiptReference, decimal specialDiscount, decimal customerBalance)
         {
             var paramList = new List<ReportParameterVM>();
 
@@ -572,6 +657,18 @@ namespace PizzaBox_Receipt_Management.Presentation
                 Value = receiptReference
             });
 
+            paramList.Add(new ReportParameterVM()
+            {
+                Name = "@SpecialDiscount",
+                Value = specialDiscount
+            });
+
+            paramList.Add(new ReportParameterVM()
+            {
+                Name = "@CustomerBalance",
+                Value = customerBalance
+            });
+
             var returnParameter = new ReportParameters()
             {
                 parameters = paramList
@@ -592,6 +689,7 @@ namespace PizzaBox_Receipt_Management.Presentation
             txtAddress.Clear();
             txtName.Clear();
             btnCustomerReset.Enabled = true;
+            this.receiptHistoryTable.Rows.Clear();
             this.BusinessPartnerFormFieldValidation();
         }
 
@@ -612,6 +710,7 @@ namespace PizzaBox_Receipt_Management.Presentation
         private void resetTable()
         {
             this.receiptTable.Rows.Clear();
+            this.receiptHistoryTable.Rows.Clear();
             btnSubmitAll.Enabled = false;
         }
 
@@ -652,6 +751,11 @@ namespace PizzaBox_Receipt_Management.Presentation
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnResetAll_Click(object sender, EventArgs e)
+        {
+            this.RefreshPage();
         }
     }
 }

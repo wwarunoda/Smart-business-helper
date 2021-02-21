@@ -42,6 +42,14 @@ namespace PizzaBox_Receipt_Management.BLL
                 return reciptDal.AddReceiptDetails(receipt);
             }
         }
+
+        public IEnumerable<ReceiptVM> GetReceiptHistory(int bspId)
+        {
+            using (ReceiptDAL reciptDal = new ReceiptDAL())
+            {
+                return reciptDal.GetReceiptHistory(bspId);
+            }
+        }
         public void Dispose()
         {
             GC.SuppressFinalize(this);

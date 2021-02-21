@@ -17,6 +17,21 @@ namespace PizzaBox_Receipt_Management.DML
         public ReceiptDAL()
         {
             dbInstance = Database.getDbInstance();
+        }        
+
+        public string AddReceiptDetails(ReceiptVM receipt)
+        {
+            SqlConnection connection = dbInstance.GetDBConnection();
+            SqlCommand cmd = new SqlCommand();
+            SqlDataAdapter da = new SqlDataAdapter();
+            DataSet ds = new DataSet();
+            cmd = new SqlCommand("Insert_Receipt", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ReceiptData", JsonConvert.SerializeObject(receipt));
+            da = new SqlDataAdapter(cmd);
+            da.Fill(ds);
+
+            return ds.Tables[0].Rows[0]["Id"].ToString();
         }
 
         public IEnumerable<BusinessPartnerContactDetails> GetContact(string phoneNumber)
@@ -35,19 +50,19 @@ namespace PizzaBox_Receipt_Management.DML
             return this.GetContactList(contactTable);
         }
 
-        public string AddReceiptDetails(ReceiptVM receipt)
+        public IEnumerable<ReceiptVM> GetReceiptHistory(int bspId)
         {
             SqlConnection connection = dbInstance.GetDBConnection();
             SqlCommand cmd = new SqlCommand();
             SqlDataAdapter da = new SqlDataAdapter();
             DataSet ds = new DataSet();
-            cmd = new SqlCommand("Insert_Receipt", connection);
+            cmd = new SqlCommand("Select_ReceiptHistoryDetails", connection);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@ReceiptData", JsonConvert.SerializeObject(receipt));
+            cmd.Parameters.AddWithValue("@BusinessPartnerId", bspId);
             da = new SqlDataAdapter(cmd);
             da.Fill(ds);
 
-            return ds.Tables[0].Rows[0]["Id"].ToString();
+            return this.GetBSPHistoryList(ds);
         }
 
         public BusinessPartnerVM GetBusinessPartnerByBSPId(int bspId)
@@ -97,6 +112,70 @@ namespace PizzaBox_Receipt_Management.DML
                                         }).ToList();
 
             return convertedContactList;
+        }
+
+        private List<ReceiptVM> GetBSPHistoryList(DataSet bspDetails)
+        {
+            DataTable receiptHeader = bspDetails.Tables[0];
+            DataTable productReceiptMap = bspDetails.Tables[1];
+            DataTable productDetails = bspDetails.Tables[2];
+            List<ReceiptVM> receiptHeaderList = new List<ReceiptVM>();
+            if (receiptHeader != null && receiptHeader.Rows.Count > 0 &&
+                productReceiptMap != null && productReceiptMap.Rows.Count > 0 &&
+                productDetails != null && productDetails.Rows.Count > 0)
+            {
+
+                receiptHeaderList = (from rw in receiptHeader.AsEnumerable()
+                                         select new ReceiptVM()
+                                         {
+                                             Id = Convert.ToInt32(rw["Id"]),
+                                             TotalAmount = Convert.ToDecimal(rw["TotalAmount"]),
+                                             GivenAmount = Convert.ToDecimal(rw["CustomerGivenAmount"]),
+                                             SpecialDiscount = Convert.ToDecimal(rw["SpecialDiscount"]),
+                                             Remark = Convert.ToString(rw["Remark"]),
+                                             CreatedDateTime = Convert.ToDateTime(rw["CreatedDateTime"])
+                                         }).ToList();
+
+                var productReceiptMapList = (from rw in productReceiptMap.AsEnumerable()
+                                             select new ProductReceiptMapVM()
+                                             {
+                                                 ProductId = Convert.ToInt32(rw["Id"]),
+                                                 ReceiptId = Convert.ToInt32(rw["ReceiptId"]),
+                                                 Quantity = Convert.ToInt32(rw["Quantity"]),
+                                                 ItemPrice = Convert.ToDecimal(rw["Price"]),
+                                                 ItemDiscountedPrice = Convert.ToDecimal(rw["Discount"]),
+                                                 mpt_SizeEnum = Convert.ToInt32(rw["mpt_SizeEnum"]),
+                                                 Size = Convert.ToString(rw["Size"])
+                                             }).ToList();
+
+                var productDetailsList = (from rw in productDetails.AsEnumerable()
+                                          select new ProductVM()
+                                          {
+                                              Id = Convert.ToInt32(rw["Id"]),
+                                              Name = Convert.ToString(rw["Name"]),
+                                              Code = Convert.ToString(rw["Code"]),
+                                              mpt_CategoryEnum = Convert.ToInt32(rw["mpt_CategoryEnum"]),
+                                              CategoryName = Convert.ToString(rw["CategoryName"]),
+                                              mpt_StatusEnum = Convert.ToInt32(rw["mpt_StatusEnum"]),
+                                              mpt_SizeEnum = Convert.ToInt32(rw["mpt_SizeEnum"]),
+                                              Status = Convert.ToString(rw["Status"])
+                                          }).ToList();
+
+                // Map Details
+                for (int i = 0; i < productReceiptMapList.Count(); i++)
+                {
+                    int activeProductId = productReceiptMapList[i].ProductId;
+                    int sizeEnum = productReceiptMapList[i].mpt_SizeEnum.Value;
+                    productReceiptMapList[i].product = productDetailsList.Find(x => (x.Id == activeProductId && x.mpt_SizeEnum == sizeEnum));
+                }
+
+                for (int i = 0; i < receiptHeaderList.Count(); i++)
+                {
+                    int activeReceiptId = receiptHeaderList[i].Id;
+                    receiptHeaderList[i].Products = productReceiptMapList.FindAll(x => x.ReceiptId == activeReceiptId);
+                }
+            }
+            return receiptHeaderList;
         }
 
         private BusinessPartnerResponse GetBusinessPartnerResponse(DataTable bsp)

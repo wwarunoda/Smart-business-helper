@@ -64,7 +64,7 @@ namespace PizzaBox_Receipt_Management.Presentation
             this.label12 = new System.Windows.Forms.Label();
             this.cmbSelectProduct = new System.Windows.Forms.ComboBox();
             this.cmbSelectSize = new System.Windows.Forms.ComboBox();
-            this.lblSize = new System.Windows.Forms.Label();
+            this.lblCategorySizes = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -74,11 +74,42 @@ namespace PizzaBox_Receipt_Management.Presentation
             this.label16 = new System.Windows.Forms.Label();
             this.lblShowSelectedProduct = new System.Windows.Forms.Label();
             this.btnResetSpec = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnViewReport = new System.Windows.Forms.Button();
+            this.dtToDate = new System.Windows.Forms.DateTimePicker();
+            this.dtFromDate = new System.Windows.Forms.DateTimePicker();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.txtTP = new System.Windows.Forms.TextBox();
+            this.txtName = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.txtReceiptNo = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.txtAddress = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.txtProductName = new System.Windows.Forms.TextBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.txtProductCode = new System.Windows.Forms.TextBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
             this.ConfigItemPanel.SuspendLayout();
             this.ItemDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productGridView)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewSpecifications)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // ConfigItemPanel
@@ -345,7 +376,7 @@ namespace PizzaBox_Receipt_Management.Presentation
             this.panel1.Controls.Add(this.cmbSelectProduct);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.cmbSelectSize);
-            this.panel1.Controls.Add(this.lblSize);
+            this.panel1.Controls.Add(this.lblCategorySizes);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.txtDiscount);
@@ -435,14 +466,14 @@ namespace PizzaBox_Receipt_Management.Presentation
             this.cmbSelectSize.TabIndex = 24;
             this.cmbSelectSize.SelectedIndexChanged += new System.EventHandler(this.cmbSelectSize_SelectedIndexChanged);
             // 
-            // lblSize
+            // lblCategorySizes
             // 
-            this.lblSize.AutoSize = true;
-            this.lblSize.Location = new System.Drawing.Point(7, 89);
-            this.lblSize.Name = "lblSize";
-            this.lblSize.Size = new System.Drawing.Size(35, 17);
-            this.lblSize.TabIndex = 23;
-            this.lblSize.Text = "Size";
+            this.lblCategorySizes.AutoSize = true;
+            this.lblCategorySizes.Location = new System.Drawing.Point(7, 89);
+            this.lblCategorySizes.Name = "lblCategorySizes";
+            this.lblCategorySizes.Size = new System.Drawing.Size(35, 17);
+            this.lblCategorySizes.TabIndex = 23;
+            this.lblCategorySizes.Text = "Size";
             // 
             // label10
             // 
@@ -530,11 +561,297 @@ namespace PizzaBox_Receipt_Management.Presentation
             this.btnResetSpec.UseVisualStyleBackColor = true;
             this.btnResetSpec.Click += new System.EventHandler(this.btnResetSpec_Click);
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.label35);
+            this.panel2.Controls.Add(this.txtProductCode);
+            this.panel2.Controls.Add(this.label34);
+            this.panel2.Controls.Add(this.txtAddress);
+            this.panel2.Controls.Add(this.label30);
+            this.panel2.Controls.Add(this.label31);
+            this.panel2.Controls.Add(this.txtProductName);
+            this.panel2.Controls.Add(this.label32);
+            this.panel2.Controls.Add(this.label33);
+            this.panel2.Controls.Add(this.txtEmail);
+            this.panel2.Controls.Add(this.label26);
+            this.panel2.Controls.Add(this.label27);
+            this.panel2.Controls.Add(this.txtReceiptNo);
+            this.panel2.Controls.Add(this.label28);
+            this.panel2.Controls.Add(this.label29);
+            this.panel2.Controls.Add(this.txtName);
+            this.panel2.Controls.Add(this.label24);
+            this.panel2.Controls.Add(this.label25);
+            this.panel2.Controls.Add(this.txtTP);
+            this.panel2.Controls.Add(this.label22);
+            this.panel2.Controls.Add(this.label23);
+            this.panel2.Controls.Add(this.btnViewReport);
+            this.panel2.Controls.Add(this.dtToDate);
+            this.panel2.Controls.Add(this.dtFromDate);
+            this.panel2.Controls.Add(this.label20);
+            this.panel2.Controls.Add(this.label21);
+            this.panel2.Controls.Add(this.label18);
+            this.panel2.Controls.Add(this.label19);
+            this.panel2.Controls.Add(this.label17);
+            this.panel2.Location = new System.Drawing.Point(1106, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(548, 255);
+            this.panel2.TabIndex = 9;
+            // 
+            // btnViewReport
+            // 
+            this.btnViewReport.Location = new System.Drawing.Point(389, 149);
+            this.btnViewReport.Name = "btnViewReport";
+            this.btnViewReport.Size = new System.Drawing.Size(152, 57);
+            this.btnViewReport.TabIndex = 29;
+            this.btnViewReport.Text = "View Report";
+            this.btnViewReport.UseVisualStyleBackColor = true;
+            this.btnViewReport.Click += new System.EventHandler(this.btnViewReport_Click);
+            // 
+            // dtToDate
+            // 
+            this.dtToDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtToDate.Location = new System.Drawing.Point(389, 31);
+            this.dtToDate.Name = "dtToDate";
+            this.dtToDate.Size = new System.Drawing.Size(150, 22);
+            this.dtToDate.TabIndex = 28;
+            // 
+            // dtFromDate
+            // 
+            this.dtFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtFromDate.Location = new System.Drawing.Point(127, 28);
+            this.dtFromDate.Name = "dtFromDate";
+            this.dtFromDate.Size = new System.Drawing.Size(150, 22);
+            this.dtFromDate.TabIndex = 27;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(366, 33);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(17, 17);
+            this.label20.TabIndex = 26;
+            this.label20.Text = ":-";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(286, 33);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(25, 17);
+            this.label21.TabIndex = 25;
+            this.label21.Text = "To";
+            this.label21.Click += new System.EventHandler(this.label21_Click);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(104, 31);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(17, 17);
+            this.label18.TabIndex = 24;
+            this.label18.Text = ":-";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(24, 33);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(74, 17);
+            this.label19.TabIndex = 23;
+            this.label19.Text = "Date From";
+            this.label19.Click += new System.EventHandler(this.label19_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(3, 5);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(86, 17);
+            this.label17.TabIndex = 1;
+            this.label17.Text = "Dialy Report";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(104, 67);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(17, 17);
+            this.label22.TabIndex = 31;
+            this.label22.Text = ":-";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(24, 67);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(26, 17);
+            this.label23.TabIndex = 30;
+            this.label23.Text = "TP";
+            // 
+            // txtTP
+            // 
+            this.txtTP.Location = new System.Drawing.Point(127, 62);
+            this.txtTP.Name = "txtTP";
+            this.txtTP.Size = new System.Drawing.Size(150, 22);
+            this.txtTP.TabIndex = 32;
+            // 
+            // txtName
+            // 
+            this.txtName.Location = new System.Drawing.Point(389, 62);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(150, 22);
+            this.txtName.TabIndex = 35;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(366, 67);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(17, 17);
+            this.label24.TabIndex = 34;
+            this.label24.Text = ":-";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(286, 67);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(45, 17);
+            this.label25.TabIndex = 33;
+            this.label25.Text = "Name";
+            // 
+            // txtEmail
+            // 
+            this.txtEmail.Location = new System.Drawing.Point(389, 92);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(150, 22);
+            this.txtEmail.TabIndex = 41;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(366, 97);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(17, 17);
+            this.label26.TabIndex = 40;
+            this.label26.Text = ":-";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(286, 97);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(42, 17);
+            this.label27.TabIndex = 39;
+            this.label27.Text = "Email";
+            // 
+            // txtReceiptNo
+            // 
+            this.txtReceiptNo.Location = new System.Drawing.Point(127, 92);
+            this.txtReceiptNo.Name = "txtReceiptNo";
+            this.txtReceiptNo.Size = new System.Drawing.Size(150, 22);
+            this.txtReceiptNo.TabIndex = 38;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(104, 97);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(17, 17);
+            this.label28.TabIndex = 37;
+            this.label28.Text = ":-";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(24, 97);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(78, 17);
+            this.label29.TabIndex = 36;
+            this.label29.Text = "Receipt No";
+            // 
+            // txtAddress
+            // 
+            this.txtAddress.Location = new System.Drawing.Point(127, 121);
+            this.txtAddress.Name = "txtAddress";
+            this.txtAddress.Size = new System.Drawing.Size(150, 22);
+            this.txtAddress.TabIndex = 47;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(104, 126);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(17, 17);
+            this.label30.TabIndex = 46;
+            this.label30.Text = ":-";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(24, 126);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(60, 17);
+            this.label31.TabIndex = 45;
+            this.label31.Text = "Address";
+            // 
+            // txtProductName
+            // 
+            this.txtProductName.Location = new System.Drawing.Point(149, 156);
+            this.txtProductName.Name = "txtProductName";
+            this.txtProductName.Size = new System.Drawing.Size(150, 22);
+            this.txtProductName.TabIndex = 44;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(127, 161);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(17, 17);
+            this.label32.TabIndex = 43;
+            this.label32.Text = ":-";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(23, 161);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(98, 17);
+            this.label33.TabIndex = 42;
+            this.label33.Text = "Product Name";
+            this.label33.Click += new System.EventHandler(this.label33_Click);
+            // 
+            // txtProductCode
+            // 
+            this.txtProductCode.Location = new System.Drawing.Point(149, 184);
+            this.txtProductCode.Name = "txtProductCode";
+            this.txtProductCode.Size = new System.Drawing.Size(150, 22);
+            this.txtProductCode.TabIndex = 49;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(26, 187);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(94, 17);
+            this.label34.TabIndex = 48;
+            this.label34.Text = "Product Code";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(126, 187);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(17, 17);
+            this.label35.TabIndex = 50;
+            this.label35.Text = ":-";
+            // 
             // AddUpdateItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1924, 1020);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.btnResetSpec);
             this.Controls.Add(this.lblShowSelectedProduct);
             this.Controls.Add(this.label16);
@@ -558,6 +875,8 @@ namespace PizzaBox_Receipt_Management.Presentation
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewSpecifications)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -592,7 +911,7 @@ namespace PizzaBox_Receipt_Management.Presentation
         private Panel panel1;
         private Label label7;
         private ComboBox cmbSelectProduct;
-        private Label lblSize;
+        private Label lblCategorySizes;
         private Label label10;
         private Label label9;
         private Label label8;
@@ -609,5 +928,35 @@ namespace PizzaBox_Receipt_Management.Presentation
         private Label lblShowSelectedProduct;
         private Button btnResetSpec;
         private ComboBox cmbSelectSize;
+        private Panel panel2;
+        private Button btnViewReport;
+        private DateTimePicker dtToDate;
+        private DateTimePicker dtFromDate;
+        private Label label20;
+        private Label label21;
+        private Label label18;
+        private Label label19;
+        private Label label17;
+        private Label label22;
+        private Label label23;
+        private Label label35;
+        private TextBox txtProductCode;
+        private Label label34;
+        private TextBox txtAddress;
+        private Label label30;
+        private Label label31;
+        private TextBox txtProductName;
+        private Label label32;
+        private Label label33;
+        private TextBox txtEmail;
+        private Label label26;
+        private Label label27;
+        private TextBox txtReceiptNo;
+        private Label label28;
+        private Label label29;
+        private TextBox txtName;
+        private Label label24;
+        private Label label25;
+        private TextBox txtTP;
     }
 }

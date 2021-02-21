@@ -1,4 +1,5 @@
-﻿using PizzaBox_Receipt_Management.BLL;
+﻿using OfficeOpenXml;
+using PizzaBox_Receipt_Management.BLL;
 using PizzaBox_Receipt_Management.DML;
 using PizzaBox_Receipt_Management.Enums;
 using PizzaBox_Receipt_Management.Models;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Documents;
@@ -511,11 +513,11 @@ namespace PizzaBox_Receipt_Management.Presentation
             if (selectedValue != (int)PizzaBox_Receipt_Management.Enums.CommonEnums.CategoryEnum.Bite)
             {
                 this.cmbSelectSize.DataSource = this.SizeList;
-                this.lblSize.Text = "Size";
+                this.lblCategorySizes.Text = "Size";
             } else
             {
                 this.cmbSelectSize.DataSource = this.PortionList;
-                this.lblSize.Text = "Portion";
+                this.lblCategorySizes.Text = "Portion";
             }          
             
             this.cmbSelectSize.SelectedIndex = 0;
@@ -525,10 +527,10 @@ namespace PizzaBox_Receipt_Management.Presentation
 
         private void btnSelectPriceAdd_Click(object sender, EventArgs e)
         {
-            using (ProductBLL productBll = new ProductBLL())
+            using (var productBll = new ProductBLL())
             {
                 string discount = String.IsNullOrWhiteSpace(this.txtDiscount.Text) ? "0.00" : Convert.ToDecimal(this.txtDiscount.Text) == 0 ? "0.00" : this.txtDiscount.Text;
-                ProductPriceVM productPrice = new ProductPriceVM()
+                var productPrice = new ProductPriceVM()
                 {
                     Id = !isPriceUpdate ? 0 : MapDataRowViewToPriceVM((DataRowView)this.updatedRow.DataBoundItem).Id,
                     mpt_SizeEnum = Convert.ToInt32(this.cmbSelectSize.SelectedValue),
@@ -649,7 +651,101 @@ namespace PizzaBox_Receipt_Management.Presentation
             
             this.cmbSelectProduct.DataSource = filterdPorduct;
         }
+
+        private void btnViewReport_Click(object sender, EventArgs e)
+        {
+            using (ProductBLL product = new ProductBLL())
+            using (var reportBll = new ReportHandler())
+            {
+                ReceiptAdvancedDetailsVM receiptAdvancedDetailsVM = new ReceiptAdvancedDetailsVM()
+                {
+                    FromDate = dtFromDate.Value,
+                    ToDate = dtToDate.Value,
+                    CustomerTP = txtTP.Text,
+                    CustomerName = txtName.Text,
+                    ReceiptNumber = txtReceiptNo.Text,
+                    CustomerEmail = txtEmail.Text,
+                    CustomerAddress = txtAddress.Text,
+                    Products = txtProductName.Text,
+                    ProductCodes = txtProductCode.Text
+
+                };
+                ReceiptAdvanceDetailsResponse receipt = product.GetReceiptAdvancedDetails(new ReceiptAdvanceDetailsRequest() { ReceiptDetails = receiptAdvancedDetailsVM });
+
+                if (receipt.ReceiptDetailsList != null && receipt.ReceiptDetailsList.Count() > 0)
+                {
+                    DataTable receiptDetails = this.AddValiesToDataTable(receipt);
+                    /* print report */
+
+                    reportBll.ViewFullReport("ReceiptAdvancedDetails", receiptDetails);
+                }
+            }
+        }
+
+        private DataTable AddValiesToDataTable(ReceiptAdvanceDetailsResponse receipt)
+        {
+            ReceiptReportData receiptData = new ReceiptReportData();
+            DataTable dt = receiptData.Tables["ReceiptDetails"];
+            foreach (ReceiptAdvancedDetailsVM productReceipt in receipt.ReceiptDetailsList)
+            {
+                DataRow row = dt.NewRow();
+                row["ReceiptNumber"] = productReceipt.ReceiptNumber;
+                row["BillAmount"] = productReceipt.BillAmount;
+                row["CustomerGivenAmount"] = productReceipt.CustomerGivenAmount;
+                row["SpecialDiscount"] = productReceipt.SpecialDiscount;
+                row["ProductCodes"] = productReceipt.ProductCodes;
+                row["Products"] = productReceipt.Products;
+                row["ProductsUnitPrices"] = productReceipt.ProductsUnitPrices;
+                row["ProductsUnitDiscounts"] = productReceipt.ProductsUnitDiscounts;
+                row["CustomerName"] = productReceipt.CustomerName;
+                row["CustomerAddress"] = productReceipt.CustomerAddress;
+                row["CustomerTP"] = productReceipt.CustomerTP;
+                row["CustomerEmail"] = productReceipt.CustomerEmail;
+                row["ReceiptDate"] = productReceipt.ReceiptDate;
+                dt.Rows.Add(row);
+            }
+            return dt;
+        }
+
+        public static void ClearExcelFile(string path)
+        {
+            var excel = new Microsoft.Office.Interop.Excel.Application();
+            var workbook = excel.Workbooks.Open(path);
+
+            try
+            {
+                foreach (dynamic worksheet in workbook.Worksheets)
+                {
+                    worksheet.Cells.ClearContents();
+                }
+
+                workbook.Save();
+            }
+            finally
+            {
+                workbook.Close();
+                excel.Quit();
+            }
+        }
+
+        private void label19_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label21_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbPhoneNumber_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label33_Click(object sender, EventArgs e)
+        {
+
+        }
     }
-
-
 }
