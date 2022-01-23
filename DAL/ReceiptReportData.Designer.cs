@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace PizzaBox_Receipt_Management.DML {
+namespace PizzaBox_Receipt_Management.DAL {
     
     
     /// <summary>

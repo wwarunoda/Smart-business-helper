@@ -75,6 +75,27 @@ namespace PizzaBox_Receipt_Management.Presentation
             this.lblShowSelectedProduct = new System.Windows.Forms.Label();
             this.btnResetSpec = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label35 = new System.Windows.Forms.Label();
+            this.txtProductCode = new System.Windows.Forms.TextBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.txtAddress = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.txtProductName = new System.Windows.Forms.TextBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.txtReceiptNo = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.txtName = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.txtTP = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
             this.btnViewReport = new System.Windows.Forms.Button();
             this.dtToDate = new System.Windows.Forms.DateTimePicker();
             this.dtFromDate = new System.Windows.Forms.DateTimePicker();
@@ -83,27 +104,7 @@ namespace PizzaBox_Receipt_Management.Presentation
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.txtTP = new System.Windows.Forms.TextBox();
-            this.txtName = new System.Windows.Forms.TextBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.txtEmail = new System.Windows.Forms.TextBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.txtReceiptNo = new System.Windows.Forms.TextBox();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.txtAddress = new System.Windows.Forms.TextBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.txtProductName = new System.Windows.Forms.TextBox();
-            this.label32 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.txtProductCode = new System.Windows.Forms.TextBox();
-            this.label34 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
+            this.btnMessageSetup = new System.Windows.Forms.Button();
             this.ConfigItemPanel.SuspendLayout();
             this.ItemDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productGridView)).BeginInit();
@@ -597,6 +598,182 @@ namespace PizzaBox_Receipt_Management.Presentation
             this.panel2.Size = new System.Drawing.Size(548, 255);
             this.panel2.TabIndex = 9;
             // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(126, 187);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(17, 17);
+            this.label35.TabIndex = 50;
+            this.label35.Text = ":-";
+            // 
+            // txtProductCode
+            // 
+            this.txtProductCode.Location = new System.Drawing.Point(149, 184);
+            this.txtProductCode.Name = "txtProductCode";
+            this.txtProductCode.Size = new System.Drawing.Size(150, 22);
+            this.txtProductCode.TabIndex = 49;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(26, 187);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(94, 17);
+            this.label34.TabIndex = 48;
+            this.label34.Text = "Product Code";
+            // 
+            // txtAddress
+            // 
+            this.txtAddress.Location = new System.Drawing.Point(127, 121);
+            this.txtAddress.Name = "txtAddress";
+            this.txtAddress.Size = new System.Drawing.Size(150, 22);
+            this.txtAddress.TabIndex = 47;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(104, 126);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(17, 17);
+            this.label30.TabIndex = 46;
+            this.label30.Text = ":-";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(24, 126);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(60, 17);
+            this.label31.TabIndex = 45;
+            this.label31.Text = "Address";
+            // 
+            // txtProductName
+            // 
+            this.txtProductName.Location = new System.Drawing.Point(149, 156);
+            this.txtProductName.Name = "txtProductName";
+            this.txtProductName.Size = new System.Drawing.Size(150, 22);
+            this.txtProductName.TabIndex = 44;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(127, 161);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(17, 17);
+            this.label32.TabIndex = 43;
+            this.label32.Text = ":-";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(23, 161);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(98, 17);
+            this.label33.TabIndex = 42;
+            this.label33.Text = "Product Name";
+            this.label33.Click += new System.EventHandler(this.label33_Click);
+            // 
+            // txtEmail
+            // 
+            this.txtEmail.Location = new System.Drawing.Point(389, 92);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(150, 22);
+            this.txtEmail.TabIndex = 41;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(366, 97);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(17, 17);
+            this.label26.TabIndex = 40;
+            this.label26.Text = ":-";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(286, 97);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(42, 17);
+            this.label27.TabIndex = 39;
+            this.label27.Text = "Email";
+            // 
+            // txtReceiptNo
+            // 
+            this.txtReceiptNo.Location = new System.Drawing.Point(127, 92);
+            this.txtReceiptNo.Name = "txtReceiptNo";
+            this.txtReceiptNo.Size = new System.Drawing.Size(150, 22);
+            this.txtReceiptNo.TabIndex = 38;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(104, 97);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(17, 17);
+            this.label28.TabIndex = 37;
+            this.label28.Text = ":-";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(24, 97);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(78, 17);
+            this.label29.TabIndex = 36;
+            this.label29.Text = "Receipt No";
+            // 
+            // txtName
+            // 
+            this.txtName.Location = new System.Drawing.Point(389, 62);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(150, 22);
+            this.txtName.TabIndex = 35;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(366, 67);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(17, 17);
+            this.label24.TabIndex = 34;
+            this.label24.Text = ":-";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(286, 67);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(45, 17);
+            this.label25.TabIndex = 33;
+            this.label25.Text = "Name";
+            // 
+            // txtTP
+            // 
+            this.txtTP.Location = new System.Drawing.Point(127, 62);
+            this.txtTP.Name = "txtTP";
+            this.txtTP.Size = new System.Drawing.Size(150, 22);
+            this.txtTP.TabIndex = 32;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(104, 67);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(17, 17);
+            this.label22.TabIndex = 31;
+            this.label22.Text = ":-";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(24, 67);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(26, 17);
+            this.label23.TabIndex = 30;
+            this.label23.Text = "TP";
+            // 
             // btnViewReport
             // 
             this.btnViewReport.Location = new System.Drawing.Point(389, 149);
@@ -670,187 +847,22 @@ namespace PizzaBox_Receipt_Management.Presentation
             this.label17.TabIndex = 1;
             this.label17.Text = "Dialy Report";
             // 
-            // label22
+            // btnMessageSetup
             // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(104, 67);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(17, 17);
-            this.label22.TabIndex = 31;
-            this.label22.Text = ":-";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(24, 67);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(26, 17);
-            this.label23.TabIndex = 30;
-            this.label23.Text = "TP";
-            // 
-            // txtTP
-            // 
-            this.txtTP.Location = new System.Drawing.Point(127, 62);
-            this.txtTP.Name = "txtTP";
-            this.txtTP.Size = new System.Drawing.Size(150, 22);
-            this.txtTP.TabIndex = 32;
-            // 
-            // txtName
-            // 
-            this.txtName.Location = new System.Drawing.Point(389, 62);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(150, 22);
-            this.txtName.TabIndex = 35;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(366, 67);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(17, 17);
-            this.label24.TabIndex = 34;
-            this.label24.Text = ":-";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(286, 67);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(45, 17);
-            this.label25.TabIndex = 33;
-            this.label25.Text = "Name";
-            // 
-            // txtEmail
-            // 
-            this.txtEmail.Location = new System.Drawing.Point(389, 92);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(150, 22);
-            this.txtEmail.TabIndex = 41;
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(366, 97);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(17, 17);
-            this.label26.TabIndex = 40;
-            this.label26.Text = ":-";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(286, 97);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(42, 17);
-            this.label27.TabIndex = 39;
-            this.label27.Text = "Email";
-            // 
-            // txtReceiptNo
-            // 
-            this.txtReceiptNo.Location = new System.Drawing.Point(127, 92);
-            this.txtReceiptNo.Name = "txtReceiptNo";
-            this.txtReceiptNo.Size = new System.Drawing.Size(150, 22);
-            this.txtReceiptNo.TabIndex = 38;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(104, 97);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(17, 17);
-            this.label28.TabIndex = 37;
-            this.label28.Text = ":-";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(24, 97);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(78, 17);
-            this.label29.TabIndex = 36;
-            this.label29.Text = "Receipt No";
-            // 
-            // txtAddress
-            // 
-            this.txtAddress.Location = new System.Drawing.Point(127, 121);
-            this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(150, 22);
-            this.txtAddress.TabIndex = 47;
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(104, 126);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(17, 17);
-            this.label30.TabIndex = 46;
-            this.label30.Text = ":-";
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(24, 126);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(60, 17);
-            this.label31.TabIndex = 45;
-            this.label31.Text = "Address";
-            // 
-            // txtProductName
-            // 
-            this.txtProductName.Location = new System.Drawing.Point(149, 156);
-            this.txtProductName.Name = "txtProductName";
-            this.txtProductName.Size = new System.Drawing.Size(150, 22);
-            this.txtProductName.TabIndex = 44;
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(127, 161);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(17, 17);
-            this.label32.TabIndex = 43;
-            this.label32.Text = ":-";
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(23, 161);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(98, 17);
-            this.label33.TabIndex = 42;
-            this.label33.Text = "Product Name";
-            this.label33.Click += new System.EventHandler(this.label33_Click);
-            // 
-            // txtProductCode
-            // 
-            this.txtProductCode.Location = new System.Drawing.Point(149, 184);
-            this.txtProductCode.Name = "txtProductCode";
-            this.txtProductCode.Size = new System.Drawing.Size(150, 22);
-            this.txtProductCode.TabIndex = 49;
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(26, 187);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(94, 17);
-            this.label34.TabIndex = 48;
-            this.label34.Text = "Product Code";
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(126, 187);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(17, 17);
-            this.label35.TabIndex = 50;
-            this.label35.Text = ":-";
+            this.btnMessageSetup.Location = new System.Drawing.Point(1662, 16);
+            this.btnMessageSetup.Name = "btnMessageSetup";
+            this.btnMessageSetup.Size = new System.Drawing.Size(152, 57);
+            this.btnMessageSetup.TabIndex = 51;
+            this.btnMessageSetup.Text = "Message Setup";
+            this.btnMessageSetup.UseVisualStyleBackColor = true;
+            this.btnMessageSetup.Click += new System.EventHandler(this.btnMessageSetup_Click);
             // 
             // AddUpdateItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1924, 1020);
+            this.Controls.Add(this.btnMessageSetup);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.btnResetSpec);
             this.Controls.Add(this.lblShowSelectedProduct);
@@ -958,5 +970,6 @@ namespace PizzaBox_Receipt_Management.Presentation
         private Label label24;
         private Label label25;
         private TextBox txtTP;
+        private Button btnMessageSetup;
     }
 }

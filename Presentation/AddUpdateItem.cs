@@ -1,5 +1,6 @@
 ﻿using OfficeOpenXml;
 using PizzaBox_Receipt_Management.BLL;
+using PizzaBox_Receipt_Management.DAL;
 using PizzaBox_Receipt_Management.DML;
 using PizzaBox_Receipt_Management.Enums;
 using PizzaBox_Receipt_Management.Models;
@@ -746,6 +747,18 @@ namespace PizzaBox_Receipt_Management.Presentation
         private void label33_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnMessageSetup_Click(object sender, EventArgs e)
+        {
+            using (var promotionalMessage = new PromotionalMessage(this))
+            {
+                var result = promotionalMessage.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    
+                }
+            }
         }
     }
 }

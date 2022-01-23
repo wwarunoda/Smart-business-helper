@@ -1,6 +1,7 @@
 ﻿using CrystalDecisions.Windows.Forms;
 using Newtonsoft.Json;
 using PizzaBox_Receipt_Management.BLL;
+using PizzaBox_Receipt_Management.DAL;
 using PizzaBox_Receipt_Management.DML;
 using PizzaBox_Receipt_Management.Models;
 using PizzaBox_Receipt_Management.View;

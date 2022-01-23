@@ -44,10 +44,17 @@
     <Reference Include="EPPlus, Version=5.4.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.5.4.1\lib\net45\EPPlus.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=1.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.1.1.2\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.1.2\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -60,8 +67,13 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.1.2\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
@@ -74,6 +86,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Twilio, Version=5.54.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.5.54.0\lib\net451\Twilio.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsBase.4.6.1055.0\lib\WindowsBase.dll</HintPath>
     </Reference>
@@ -87,20 +102,30 @@
     </Compile>
     <Compile Include="BLL\CommonServiceBLL.cs" />
     <Compile Include="BLL\ProductBLL.cs" />
+    <Compile Include="BLL\PromotionalMessageBLL.cs" />
     <Compile Include="BLL\ReceiptBLL.cs" />
     <Compile Include="BLL\ReportHandler.cs" />
-    <Compile Include="DML\CommonServiceDAL.cs" />
-    <Compile Include="DML\Database.cs" />
-    <Compile Include="DML\ProductDAL.cs" />
-    <Compile Include="DML\ReceiptDAL.cs" />
-    <Compile Include="DML\ReceiptReportData.Designer.cs">
+    <Compile Include="BLL\SMSBLL.cs" />
+    <Compile Include="Connected Services\ServiceReference1\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\CommonServiceDAL.cs" />
+    <Compile Include="DAL\Database.cs" />
+    <Compile Include="DAL\ProductDAL.cs" />
+    <Compile Include="DAL\PromotionalMessageDAL.cs" />
+    <Compile Include="DAL\ReceiptDAL.cs" />
+    <Compile Include="DAL\ReceiptReportData.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReceiptReportData.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DAL\SMSDAL.cs" />
     <Compile Include="Enums\CommonEnums.cs" />
     <Compile Include="Models\BusinessPartnerResponse.cs" />
     <Compile Include="Models\CommonDataResponse.cs" />
+    <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\ReceiptAdvanceDetailsRequest.cs" />
     <Compile Include="Models\ReceiptAdvanceDetailsResponse.cs" />
     <Compile Include="Models\ReportParameters.cs" />
@@ -127,6 +152,12 @@
     </Compile>
     <Compile Include="Presentation\Password.Designer.cs">
       <DependentUpon>Password.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\PromotionalMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation\PromotionalMessage.Designer.cs">
+      <DependentUpon>PromotionalMessage.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentation\Receipting.cs">
       <SubType>Form</SubType>
@@ -176,6 +207,9 @@
     <EmbeddedResource Include="Presentation\Password.resx">
       <DependentUpon>Password.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presentation\PromotionalMessage.resx">
+      <DependentUpon>PromotionalMessage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentation\Receipting.resx">
       <DependentUpon>Receipting.cs</DependentUpon>
     </EmbeddedResource>
@@ -196,15 +230,61 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>billReceipt.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="DML\ReceiptReportData.xsc">
+    <None Include="Connected Services\ServiceReference1\EnterpriseSMSImplService.wsdl" />
+    <None Include="Connected Services\ServiceReference1\PizzaBox_Receipt_Management.ServiceReference1.closeSessionResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference1\PizzaBox_Receipt_Management.ServiceReference1.createSessionResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference1\PizzaBox_Receipt_Management.ServiceReference1.getDeliveryReportsResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference1\PizzaBox_Receipt_Management.ServiceReference1.getMessagesFromLongNumberResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference1\PizzaBox_Receipt_Management.ServiceReference1.getMessagesFromShortcodeResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference1\PizzaBox_Receipt_Management.ServiceReference1.getSentMessageReportsResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference1\PizzaBox_Receipt_Management.ServiceReference1.isSessionResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference1\PizzaBox_Receipt_Management.ServiceReference1.renewSessionResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference1\PizzaBox_Receipt_Management.ServiceReference1.sendCampaignMessagesResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference1\PizzaBox_Receipt_Management.ServiceReference1.sendMessagesMultiLangResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference1\PizzaBox_Receipt_Management.ServiceReference1.sendMessagesResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference1\PizzaBox_Receipt_Management.ServiceReference1.sentMessages1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference1\PizzaBox_Receipt_Management.ServiceReference1.serviceTestResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference1\PizzaBox_Receipt_Management.ServiceReference1.session1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference1\PizzaBox_Receipt_Management.ServiceReference1.smsMessage1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="DAL\ReceiptReportData.xsc">
       <DependentUpon>ReceiptReportData.xsd</DependentUpon>
     </None>
-    <None Include="DML\ReceiptReportData.xsd">
+    <None Include="DAL\ReceiptReportData.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>ReceiptReportData.Designer.cs</LastGenOutput>
     </None>
-    <None Include="DML\ReceiptReportData.xss">
+    <None Include="DAL\ReceiptReportData.xss">
       <DependentUpon>ReceiptReportData.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
@@ -240,8 +320,19 @@
     <None Include="Resources\icon-edit.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\ServiceReference1\configuration91.svcinfo" />
+    <None Include="Connected Services\ServiceReference1\configuration.svcinfo" />
+    <None Include="Connected Services\ServiceReference1\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="pizzaboxicon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\ServiceReference1\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

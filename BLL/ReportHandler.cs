@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Windows;
 
 namespace PizzaBox_Receipt_Management.BLL
 {
@@ -76,7 +77,6 @@ namespace PizzaBox_Receipt_Management.BLL
             CrExportOptions.FormatOptions = CrFormatTypeOptions;
             reportDocument.Export();
             this.sendmail(pdfFilePath);
-
         }
         private void sendmail(string pdfFile)
         {
